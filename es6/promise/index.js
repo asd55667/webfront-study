@@ -139,7 +139,6 @@ Promise.prototype.then = function (onResolved, onRejected) {
   }
 }
 
-
 Promise.prototype.catch = function (err) {
   return Promise.then(null, onRejected)
 }
@@ -194,8 +193,8 @@ Promise.all = function (promises) {
 Promise.allSettled = function (promises) {
   let wrappedPromises = promises.map((p) =>
     Promise.resolve(p).then(
-      (val) => ({ status: 'fulfilled', value: val }),
-      (err) => ({ status: 'rejected', reason: err }),
+      (value) => ({ status: 'resolved', value }),
+      (reason) => ({ status: 'rejected', reason }),
     ),
   )
   return Promise.all(wrappedPromises)
